@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bawelile Gule · Data Scientist & AI Strategist</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0D1B2A;
+    --ink:    #1C2B3A;
+    --steel:  #2E4057;
+    --slate:  #4A6080;
+    --mist:   #8BA3BC;
+    --fog:    #C5D5E4;
+    --paper:  #F4F7FA;
+    --white:  #FFFFFF;
+    --gold:   #C8962A;
+    --gold-l: #E8B84B;
+    --accent: #1A6B8A;
+    --accent-l: #2A8FAD;
+    --danger: #C84B4B;
+    --serif:  'DM Serif Display', Georgia, serif;
+    --sans:   'DM Sans', system-ui, sans-serif;
+    --mono:   'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--navy);
+    color: var(--white);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* ── GRID LINES ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(138,163,188,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(138,163,188,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  section, nav, footer { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(13,27,42,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(138,163,188,0.1);
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .orb-1 { width: 500px; height: 500px; background: rgba(26,107,138,0.18); top: -100px; right: -100px; }
+  .orb-2 { width: 350px; height: 350px; background: rgba(200,150,42,0.10); bottom: -50px; left: 5%; }
+
+  .hero-inner { max-width: 820px; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--mist);
+    max-width: 580px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.6s;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.8s;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: var(--sans);
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .btn-primary:hover { background: var(--gold-l); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(138,163,188,0.3);
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(138,163,188,0.12);
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1s;
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .stat-num span { color: var(--gold); }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--mist);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 em { font-style: italic; color: var(--gold); }
+
+  .section-intro {
+    font-size: 1rem;
+    color: var(--mist);
+    max-width: 600px;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--fog);
+    margin-bottom: 1.2rem;
+    font-size: 0.97rem;
+    line-height: 1.85;
+  }
+
+  .about-text p strong { color: var(--white); font-weight: 500; }
+
+  .about-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .award-card {
+    background: rgba(200,150,42,0.08);
+    border: 1px solid rgba(200,150,42,0.2);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .award-title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  .award-body {
+    font-size: 0.82rem;
+    color: var(--mist);
+    line-height: 1.6;
+  }
+
+  .edu-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+
+  .edu-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .edu-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-l);
+    margin-top: 0.45rem;
+    flex-shrink: 0;
+  }
+
+  .edu-degree { font-size: 0.88rem; color: var(--white); font-weight: 500; }
+  .edu-school { font-size: 0.78rem; color: var(--mist); }
+
+  /* ── PROJECTS ── */
+  #projects { max-width: 1100px; }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(138,163,188,0.12);
+    border-radius: 10px;
+    padding: 1.75rem;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .project-card:hover {
+    border-color: rgba(138,163,188,0.25);
+    background: rgba(255,255,255,0.05);
+    transform: translateY(-3px);
+  }
+
+  .project-card:hover::before { opacity: 1; }
+
+  .project-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--slate);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .project-tagline {
+    font-size: 0.8rem;
+    color: var(--gold);
+    font-style: italic;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--mist);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    background: rgba(26,107,138,0.2);
+    color: var(--accent-l);
+    border: 1px solid rgba(26,107,138,0.3);
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--mist);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: color 0.2s;
+    border: 1px solid rgba(138,163,188,0.2);
+    padding: 0.3rem 0.75rem;
+    border-radius: 3px;
+  }
+
+  .project-link:hover { color: var(--white); border-color: rgba(138,163,188,0.5); }
+  .project-link.colab { color: var(--gold); border-color: rgba(200,150,42,0.3); }
+  .project-link.colab:hover { background: rgba(200,150,42,0.1); }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .skill-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(138,163,188,0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .skill-category {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .skill-pill {
+    font-size: 0.78rem;
+    color: var(--fog);
+    background: rgba(138,163,188,0.08);
+    border: 1px solid rgba(138,163,188,0.15);
+    border-radius: 3px;
+    padding: 0.2rem 0.6rem;
+  }
+
+  /* ── WRITING ── */
+  .articles-list { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .article-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(138,163,188,0.1);
+    border-radius: 8px;
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .article-card:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(138,163,188,0.25);
+    transform: translateX(4px);
+  }
+
+  .article-title {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .article-meta { font-size: 0.78rem; color: var(--mist); }
+
+  .article-arrow {
+    color: var(--gold);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .article-card:hover .article-arrow { transform: translateX(4px); }
+
+  /* ── CONTACT ── */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .contact-text h2 { margin-bottom: 1rem; }
+
+  .contact-text p {
+    color: var(--mist);
+    margin-bottom: 2rem;
+    font-size: 0.97rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--fog);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(138,163,188,0.1);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .contact-link:hover { color: var(--white); border-color: rgba(138,163,188,0.3); }
+
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .ci-email { background: rgba(200,150,42,0.15); }
+  .ci-linkedin { background: rgba(10,102,194,0.2); }
+  .ci-github { background: rgba(255,255,255,0.08); }
+  .ci-medium { background: rgba(255,255,255,0.05); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(138,163,188,0.1);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-name {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--mist);
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--slate);
+    font-family: var(--mono);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--steel); border-radius: 3px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 2rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">B<span>.</span>Gule</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Data Scientist · AI Strategist · Georgia, USA · Atlanta Metro · Remote</div>
+    <h1>I turn messy data into<br><em>decisions that move</em><br>businesses forward.</h1>
+    <p class="hero-sub">
+      10+ years of strategy and operations. An MBA and an MSAI in progress at KSU.
+      I don't start with models — I start with the business problem.
+      Every pipeline I build ends with a dollar figure or an executive-ready recommendation.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View projects →</a>
+      <a href="mailto:gulebawe@gmail.com" class="btn btn-outline">Get in touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">10<span>+</span></div>
+        <div class="stat-label">Years in strategy & data</div>
+      </div>
+      <div>
+        <div class="stat-num">5</div>
+        <div class="stat-label">Production ML projects</div>
+      </div>
+      <div>
+        <div class="stat-num">&lt;10<span>%</span></div>
+        <div class="stat-label">Forecast MAPE achieved</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <h2>The story behind<br><em>the data</em></h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm not a typical data scientist. Before my MSAI at Kennesaw State University, I spent over a decade in the field — first as a statistician at a <strong>national railway authority in southern Africa</strong>, where I rebuilt the company's pricing model from scratch and earned the CEO's Employee of the Year Award. Then as a <strong>General Manager</strong> who built demand forecasting systems that drove 15–20% weekly sales growth.</p>
+      <p>That background shapes everything I build. I don't start with models — I start with the question: <strong>what decision does this data need to enable?</strong> Every pipeline I write ends with a dollar figure, an operational recommendation, or an executive-ready dashboard.</p>
+      <p>I believe the most dangerous data scientist is one who can't explain their model to a room full of people who don't care about MAPE. The most valuable one is someone who can do both: build the system <em>and</em> tell the story.</p>
+      <p>Currently seeking Data Scientist and AI Strategy roles across <strong>Georgia, Atlanta Metro, and Remote</strong>.</p>
+    </div>
+    <div class="about-aside">
+      <div class="award-card">
+        <div class="award-title">CEO Employee of the Year Award</div>
+        <div class="award-body">Awarded for rebuilding the pricing model of a national railway authority in southern Africa using regression analysis in SAS and R — translating outputs into an executive narrative that informed a full fleet strategy overhaul.</div>
+      </div>
+      <ul class="edu-list">
+        <li class="edu-item">
+          <div class="edu-dot"></div>
+          <div>
+            <div class="edu-degree">MS Artificial Intelligence — In Progress</div>
+            <div class="edu-school"><a href="https://www.kennesaw.edu" target="_blank" style="color:var(--gold);text-decoration:none;">Kennesaw State University ↗</a></div>
+          </div>
+        </li>
+        <li class="edu-item">
+          <div class="edu-dot"></div>
+          <div>
+            <div class="edu-degree">Master of Business Administration</div>
+            <div class="edu-school"><a href="https://www.mancosa.ac.za" target="_blank" style="color:var(--gold);text-decoration:none;">Management College of Southern Africa ↗</a></div>
+          </div>
+        </li>
+        <li class="edu-item">
+          <div class="edu-dot"></div>
+          <div>
+            <div class="edu-degree">BSc Statistics</div>
+            <div class="edu-school"><a href="https://www.up.ac.za" target="_blank" style="color:var(--gold);text-decoration:none;">University of Pretoria ↗</a></div>
+          </div>
+        </li>
+        <li class="edu-item">
+          <div class="edu-dot"></div>
+          <div>
+            <div class="edu-degree">Data Scientist Master's Program</div>
+            <div class="edu-school"><a href="https://www.simplilearn.com" target="_blank" style="color:var(--gold);text-decoration:none;">IBM / Simplilearn · Aug 2021 ↗</a></div>
+          </div>
+        </li>
+        <li class="edu-item">
+          <div class="edu-dot"></div>
+          <div>
+            <div class="edu-degree">Data Scientist Master's Program</div>
+            <div class="edu-school">IBM / Simplilearn · Aug 2021</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="max-width:1100px;margin:0 auto;padding:6rem 3rem;">
+  <div class="section-label">Projects</div>
+  <h2>Built to <em>prove</em> it,<br>not just describe it.</h2>
+  <p class="section-intro">Every project starts with a real business problem. Every result is measured in dollars, not just metrics.</p>
+
+  <div class="projects-grid reveal">
+
+    <div class="project-card">
+      <div class="project-num">01 / Forecasting</div>
+      <div class="project-title">Retail Demand Forecasting Pipeline</div>
+      <div class="project-tagline">Reducing inventory waste by quantifying forecast error in dollars</div>
+      <p class="project-desc">End-to-end ML pipeline — raw data ingestion, feature engineering (19 features including lag, rolling, calendar), Prophet + XGBoost ensemble, MLflow experiment tracking, and a Streamlit dashboard with business dollar-impact summary. MAPE under 10%.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Prophet</span><span class="tag">XGBoost</span>
+        <span class="tag">MLflow</span><span class="tag">Plotly</span><span class="tag">Streamlit</span>
+      </div>
+      <div class="project-links">
+        <a href="https://colab.research.google.com/github/Bawelile/retail-demand-forecasting/blob/main/RetailDemandForecasting_Portfolio.ipynb" class="project-link colab" target="_blank">▶ Open in Colab</a>
+        <a href="https://github.com/Bawelile/retail-demand-forecasting" class="project-link" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">02 / Explainable AI</div>
+      <div class="project-title">Grad-CAM XAI Image Classification</div>
+      <div class="project-tagline">Making black-box CNNs transparent for non-technical stakeholders</div>
+      <p class="project-desc">3-block CNN with Grad-CAM explainability — surfaces deep feature activations as visual diagnostic heatmaps. Enables non-technical stakeholders to validate model behaviour. Deployed as a containerised REST API via FastAPI and Docker.</p>
+      <div class="project-tags">
+        <span class="tag">TensorFlow</span><span class="tag">Grad-CAM</span><span class="tag">FastAPI</span>
+        <span class="tag">Docker</span><span class="tag">OpenCV</span>
+      </div>
+      <div class="project-links">
+        <a href="https://colab.research.google.com/github/Bawelile/xai-gradcam-pipeline/blob/main/GradCAM_XAI_Pipeline.ipynb" class="project-link colab" target="_blank">▶ Open in Colab</a>
+        <a href="https://github.com/Bawelile/xai-gradcam-pipeline" class="project-link" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">03 / MLOps</div>
+      <div class="project-title">Containerised ML API & CI/CD Pipeline</div>
+      <div class="project-tagline">From notebook to production endpoint — zero-downtime deployment</div>
+      <p class="project-desc">Production-grade ML model served as a REST API — containerised with Docker, automatically deployed via GitHub Actions CI/CD to Google Cloud Run. Load-balanced routing, health checks, and automated rollback on failure.</p>
+      <div class="project-tags">
+        <span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">GitHub Actions</span>
+        <span class="tag">Cloud Run</span><span class="tag">GKE</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Bawelile/ml-api-cicd" class="project-link" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">04 / Statistical Modelling</div>
+      <div class="project-title">Pricing & Revenue Optimisation Model</div>
+      <div class="project-tagline">The model that earned a CEO award — rebuilt and open-sourced</div>
+      <p class="project-desc">Regression-based pricing model that translates raw cost and demand data into an executive-facing revenue strategy. Includes an interactive what-if scenario tool for operations teams. Inspired by real work at a national railway authority in southern Africa.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">R</span><span class="tag">Regression</span>
+        <span class="tag">Scenario modelling</span><span class="tag">Plotly</span>
+      </div>
+      <div class="project-links">
+        <a href="https://colab.research.google.com/github/Bawelile/pricing-optimisation/blob/main/Pricing_Optimisation.ipynb" class="project-link colab" target="_blank">▶ Open in Colab</a>
+        <a href="https://github.com/Bawelile/pricing-optimisation" class="project-link" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">05 / Distributed Computing</div>
+      <div class="project-title">Distributed Forecasting Pipeline</div>
+      <div class="project-tagline">Closing the Databricks gap — production-scale ML at volume</div>
+      <p class="project-desc">Forecasting pipeline scaled to distributed compute using PySpark. Delta Lake data management, MLflow experiment tracking, and scalable feature engineering across large multi-store retail datasets. Runs on Databricks Community Edition.</p>
+      <div class="project-tags">
+        <span class="tag">PySpark</span><span class="tag">Delta Lake</span><span class="tag">MLflow</span>
+        <span class="tag">SQL</span><span class="tag">Databricks</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Bawelile/distributed-forecasting-pipeline" class="project-link" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">06 / LLM · RAG</div>
+      <div class="project-title">RAG Business Intelligence Assistant</div>
+      <div class="project-tagline">Ask your data anything — in plain English</div>
+      <p class="project-desc">Retrieval-Augmented Generation system that lets business users ask plain English questions about operational data and receive grounded, cited answers — powered by LangChain, ChromaDB, and Sentence Transformers. No SQL required. No dashboard needed. Production deployment guide included for Claude and GPT-4 integration.</p>
+      <div class="project-tags">
+        <span class="tag">LangChain</span><span class="tag">ChromaDB</span>
+        <span class="tag">RAG</span><span class="tag">Vector embeddings</span>
+        <span class="tag">Prompt engineering</span><span class="tag">Claude API</span>
+      </div>
+      <div class="project-links">
+        <a href="https://colab.research.google.com/github/Bawelile/rag-bi-assistant/blob/main/RAG_Business_Intelligence.ipynb" class="project-link colab" target="_blank">▶ Open in Colab</a>
+        <a href="https://github.com/Bawelile/rag-bi-assistant" class="project-link" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">07 / LLM · Explainability</div>
+      <div class="project-title">AI-Powered Explainability Agent</div>
+      <div class="project-tagline">From SHAP values to Monday morning briefings</div>
+      <p class="project-desc">LLM-powered agent that takes ML model outputs and SHAP feature attributions and automatically generates plain English stakeholder briefings — translating every prediction into a narrative that a non-technical decision-maker can read and act on immediately. Includes SHAP visualisation dashboard and production Claude/GPT-4 integration patterns.</p>
+      <div class="project-tags">
+        <span class="tag">LLM agents</span><span class="tag">SHAP</span>
+        <span class="tag">Prompt engineering</span><span class="tag">XGBoost</span>
+        <span class="tag">Claude API</span><span class="tag">Explainable AI</span>
+      </div>
+      <div class="project-links">
+        <a href="https://colab.research.google.com/github/Bawelile/ai-explainability-agent/blob/main/AI_Explainability_Agent.ipynb" class="project-link colab" target="_blank">▶ Open in Colab</a>
+        <a href="https://github.com/Bawelile/ai-explainability-agent" class="project-link" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">08 / Trade Promotion · CPG</div>
+      <div class="project-title">Trade Promotion Lift Modelling Pipeline</div>
+      <div class="project-tagline">Predicting promo lift by banner, product & mechanic</div>
+      <p class="project-desc">Bronze/Silver/Gold Medallion pipeline that estimates baseline demand and predicts incremental promotional lift across retail banners (Kroger, Publix, Walmart-equivalent) by promotional mechanic — price reduction, feature ad, end-cap, multi-buy. Built with PySpark and Spark SQL window functions, XGBoost lift model with SHAP explainability, and a promo ROI estimator for commercial planning teams. Databricks-compatible architecture designed to scale from POC to production product.</p>
+      <div class="project-tags">
+        <span class="tag">PySpark</span><span class="tag">Spark SQL</span>
+        <span class="tag">Delta Lake</span><span class="tag">XGBoost</span>
+        <span class="tag">SHAP</span><span class="tag">Trade Promotion</span>
+        <span class="tag">Databricks</span>
+      </div>
+      <div class="project-links">
+        <a href="https://colab.research.google.com/github/Bawelile/trade-promotion-optimization/blob/main/Trade_Promotion_Optimization.ipynb" class="project-link colab" target="_blank">▶ Open in Colab</a>
+        <a href="https://github.com/Bawelile/trade-promotion-optimization" class="project-link" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills</div>
+  <h2>The full <em>toolkit</em></h2>
+  <p class="section-intro">Built over 10+ years across statistics, operations, and AI engineering. Every skill below is demonstrated in a live project.</p>
+  <div class="skills-grid reveal">
+
+    <div class="skill-card">
+      <div class="skill-category">Languages</div>
+      <div class="skill-items">
+        <span class="skill-pill">Python</span><span class="skill-pill">SQL</span>
+        <span class="skill-pill">R</span><span class="skill-pill">SAS</span><span class="skill-pill">SPSS</span>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);">
+        Evidence: <a href="https://colab.research.google.com/github/Bawelile/retail-demand-forecasting/blob/main/RetailDemandForecasting_Portfolio.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P1 ↗</a>
+        &nbsp;<a href="https://colab.research.google.com/github/Bawelile/distributed-forecasting-pipeline/blob/main/Distributed_Forecasting_Pipeline.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P5 (Spark SQL) ↗</a>
+        &nbsp;<a href="https://colab.research.google.com/github/Bawelile/ml-api-cicd/blob/main/ML_API_CICD_Pipeline.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P3 (SQL monitoring) ↗</a>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">ML & Forecasting</div>
+      <div class="skill-items">
+        <span class="skill-pill">XGBoost</span><span class="skill-pill">Prophet</span>
+        <span class="skill-pill">TensorFlow</span><span class="skill-pill">scikit-learn</span>
+        <span class="skill-pill">ARIMA</span>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);">
+        Evidence: <a href="https://colab.research.google.com/github/Bawelile/retail-demand-forecasting/blob/main/RetailDemandForecasting_Portfolio.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P1 (Prophet + XGBoost) ↗</a>
+        &nbsp;<a href="https://colab.research.google.com/github/Bawelile/xai-gradcam-pipeline/blob/main/GradCAM_XAI_Pipeline.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P2 (TensorFlow) ↗</a>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">MLOps & Deployment</div>
+      <div class="skill-items">
+        <span class="skill-pill">MLflow</span><span class="skill-pill">Docker</span>
+        <span class="skill-pill">FastAPI</span><span class="skill-pill">GitHub Actions</span>
+        <span class="skill-pill">GKE</span><span class="skill-pill">Cloud Run</span>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);">
+        Evidence: <a href="https://colab.research.google.com/github/Bawelile/ml-api-cicd/blob/main/ML_API_CICD_Pipeline.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P3 (full CI/CD) ↗</a>
+        &nbsp;<a href="https://colab.research.google.com/github/Bawelile/retail-demand-forecasting/blob/main/RetailDemandForecasting_Portfolio.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P1 (MLflow) ↗</a>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">Distributed Computing</div>
+      <div class="skill-items">
+        <span class="skill-pill">PySpark</span><span class="skill-pill">Delta Lake</span>
+        <span class="skill-pill">Databricks</span><span class="skill-pill">Apache Spark</span>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);">
+        Evidence: <a href="https://colab.research.google.com/github/Bawelile/distributed-forecasting-pipeline/blob/main/Distributed_Forecasting_Pipeline.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P5 (full pipeline) ↗</a>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">Visualisation & Reporting</div>
+      <div class="skill-items">
+        <span class="skill-pill">Plotly</span><span class="skill-pill">Streamlit</span>
+        <span class="skill-pill">Tableau</span><span class="skill-pill">Power BI</span>
+        <span class="skill-pill">Excel</span>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);">
+        Evidence: <a href="https://colab.research.google.com/github/Bawelile/pricing-optimisation/blob/main/Pricing_Optimisation.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P4 (Excel + Tableau exports) ↗</a>
+        &nbsp;<a href="https://colab.research.google.com/github/Bawelile/retail-demand-forecasting/blob/main/RetailDemandForecasting_Portfolio.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P1 (Plotly) ↗</a>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">LLM & Generative AI</div>
+      <div class="skill-items">
+        <span class="skill-pill">LangChain</span><span class="skill-pill">RAG</span>
+        <span class="skill-pill">ChromaDB</span><span class="skill-pill">Prompt Engineering</span>
+        <span class="skill-pill">Claude API</span><span class="skill-pill">OpenAI API</span>
+        <span class="skill-pill">Vector Embeddings</span>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);">
+        Evidence: <a href="https://colab.research.google.com/github/Bawelile/rag-bi-assistant/blob/main/RAG_Business_Intelligence.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P6 (RAG pipeline) ↗</a>
+        &nbsp;<a href="https://colab.research.google.com/github/Bawelile/ai-explainability-agent/blob/main/AI_Explainability_Agent.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P7 (LLM agent) ↗</a>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-category">Trade Promotion & CPG Analytics</div>
+      <div class="skill-items">
+        <span class="skill-pill">Promo Lift Modeling</span><span class="skill-pill">Price Elasticity</span>
+        <span class="skill-pill">Medallion Architecture</span><span class="skill-pill">Spark SQL</span>
+        <span class="skill-pill">Trade Promotion ROI</span>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);">
+        Evidence: <a href="https://colab.research.google.com/github/Bawelile/trade-promotion-optimization/blob/main/Trade_Promotion_Optimization.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P8 (Promo lift model) ↗</a>
+        &nbsp;<a href="https://colab.research.google.com/github/Bawelile/pricing-optimisation/blob/main/Pricing_Optimisation.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P4 (Elasticity) ↗</a>
+      </div>
+    </div>
+      <div class="skill-items">
+        <span class="skill-pill">OKR frameworks</span><span class="skill-pill">Annual planning</span>
+        <span class="skill-pill">Supply chain</span><span class="skill-pill">Executive comms</span>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);">
+        Evidence: <a href="https://colab.research.google.com/github/Bawelile/pricing-optimisation/blob/main/Pricing_Optimisation.ipynb" target="_blank" style="color:var(--gold);text-decoration:none;">P4 (exec recommendation) ↗</a>
+        &nbsp;<a href="https://medium.com/@BawelileGule/the-number-that-changed-everything-3467ecdb5093" target="_blank" style="color:var(--gold);text-decoration:none;">Article 1 ↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="section-label">Writing</div>
+  <h2>Thinking out <em>loud</em></h2>
+  <p class="section-intro">I write about the intersection of data science, business strategy, and operational leadership.</p>
+  <div class="articles-list reveal">
+    <a href="https://medium.com/@BawelileGule/the-number-that-changed-everything-3467ecdb5093" class="article-card" target="_blank">
+      <div>
+        <div class="article-title">The Number That Changed Everything</div>
+        <div class="article-meta">Medium · Data Science · Business Strategy · 7 min read</div>
+      </div>
+      <div class="article-arrow">→</div>
+    </a>
+    <a href="https://medium.com/@BawelileGule/the-day-i-wished-i-knew-more-76b301339cbe" class="article-card" target="_blank">
+      <div>
+        <div class="article-title">The Day I Wished I Knew More</div>
+        <div class="article-meta">Medium · Small Business · Data Science · 8 min read</div>
+      </div>
+      <div class="article-arrow">→</div>
+    </a>
+    <a href="https://medium.com/@BawelileGule" class="article-card" target="_blank">
+      <div>
+        <div class="article-title">The Question Every Data Scientist Should Ask Before Touching a Dataset</div>
+        <div class="article-meta">Medium · Data Science · Coming soon</div>
+      </div>
+      <div class="article-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="contact-text">
+      <div class="section-label">Contact</div>
+      <h2>Let's build<br><em>something</em></h2>
+      <p>Open to Data Scientist and AI Strategy roles in Georgia · Atlanta Metro · Remote. Happy to talk about your data problems before we talk about job titles.</p>
+      <a href="mailto:gulebawe@gmail.com" class="btn btn-primary">Send me a message →</a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:gulebawe@gmail.com" class="contact-link">
+        <div class="contact-icon ci-email">✉</div>
+        <div>
+          <div style="font-weight:500;color:var(--white);font-size:0.88rem;">gulebawe@gmail.com</div>
+          <div style="font-size:0.75rem;color:var(--mist);">Best way to reach me</div>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/BawelileGule" class="contact-link" target="_blank">
+        <div class="contact-icon ci-linkedin">in</div>
+        <div>
+          <div style="font-weight:500;color:var(--white);font-size:0.88rem;">LinkedIn</div>
+          <div style="font-size:0.75rem;color:var(--mist);">linkedin.com/in/BawelileGule</div>
+        </div>
+      </a>
+      <a href="https://github.com/Bawelile" class="contact-link" target="_blank">
+        <div class="contact-icon ci-github">⌥</div>
+        <div>
+          <div style="font-weight:500;color:var(--white);font-size:0.88rem;">GitHub</div>
+          <div style="font-size:0.75rem;color:var(--mist);">github.com/Bawelile</div>
+        </div>
+      </a>
+      <a href="https://medium.com/@BawelileGule" class="contact-link" target="_blank">
+        <div class="contact-icon ci-medium">M</div>
+        <div>
+          <div style="font-weight:500;color:var(--white);font-size:0.88rem;">Medium</div>
+          <div style="font-size:0.75rem;color:var(--mist);">medium.com/@BawelileGule</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Bawelile Gule · Data Scientist & AI Strategist</div>
+  <div class="footer-copy">Georgia, USA · Atlanta Metro · Remote · Open to Work</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--white)' : '';
+    });
+  });
+</script>
+</body>
+</html>
